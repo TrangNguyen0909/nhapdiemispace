@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống tra cứu bảng điểm - iSPACE</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #2d3c93;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-header {
+            margin-bottom: 30px;
+        }
+
+        .login-header h1 {
+            color: #2d3c93;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #718096;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #c7363e;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #e53e3e;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 18px;
+        }
+
+        .grade-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .student-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #4a5568;
+            min-width: 120px;
+        }
+
+        .info-value {
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        .grades-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .grades-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .grades-table td {
+            padding: 18px 15px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 15px;
+        }
+
+        .grades-table tr:hover {
+            background-color: #f7fafc;
+        }
+
+        .grade-score {
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 16px;
+        }
+
+        .summary-section {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .summary-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .summary-value {
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 18px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .signature-section {
+            text-align: right;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        .signature-date {
+            font-style: italic;
+            color: #718096;
+            margin-bottom: 30px;
+        }
+
+        .signature-title {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .grade-card {
+                padding: 20px;
+            }
+
+            .student-info {
+                grid-template-columns: 1fr;
+            }
+
+            .grades-table {
+                font-size: 14px;
+            }
+
+            .grades-table th,
+            .grades-table td {
+                padding: 12px 8px;
+            }
+
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .actions {
+                display: none;
+            }
+
+            .grade-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1><i class="fas fa-graduation-cap"></i> iSPACE</h1>
+                <p>Hệ thống tra cứu bảng điểm sinh viên</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="mssv">Mã số sinh viên (MSSV)</label>
+                    <input type="text" id="mssv" class="form-input" placeholder="Nhập MSSV của bạn" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" class="form-input" placeholder="Nhập mật khẩu" required>
+                </div>
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                </button>
+                <div id="errorMessage" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard">
+        <div class="container">
+            <div class="header">
+                <h1>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h1>
+                <p><strong>Độc lập - Tự do - Hạnh phúc</strong></p>
+            </div>
+
+            <div class="grade-card">
+                <div class="text-center mb-4">
+                    <h2 style="color: #2d3748; font-size: 28px; margin-bottom: 10px;">TRƯỜNG CAO ĐẲNG AN NINH MẠNG iSPACE</h2>
+                    <h3 style="color: #4a5568; font-size: 24px;">BẢNG TỔNG HỢP KẾT QUẢ HỌC TẬP</h3>
+                </div>
+
+                <div id="studentInfo" class="student-info">
+                    <!-- Student info will be populated here -->
+                </div>
+
+                <table class="grades-table">
+                    <thead>
+                        <tr>
+                            <th>TT</th>
+                            <th>Môn học/Môđun</th>
+                            <th>Hệ số môn</th>
+                            <th>Điểm TKM</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gradesTableBody">
+                        <!-- Grades will be populated here -->
+                    </tbody>
+                </table>
+
+                <div class="summary-section">
+                    <h3 class="summary-title">XẾP LOẠI TỐT NGHIỆP</h3>
+                    <div class="summary-item">
+                        <span class="summary-label">Điểm trung bình chung toàn khóa:</span>
+                        <span id="avgGrade" class="summary-value">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Điểm đánh giá xếp loại tốt nghiệp:</span>
+                        <span class="summary-value">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Xếp loại tốt nghiệp:</span>
+                        <span id="classification" class="summary-value">-</span>
+                    </div>
+                </div>
+
+                <div class="signature-section">
+                    <div class="signature-date">TP. Hồ Chí Minh, ngày 19 tháng 06 năm 2025</div>
+                    <div class="signature-title">Hiệu trưởng</div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="window.print()">
+                        <i class="fas fa-download"></i> Tải PDF
+                    </button>
+                    <button class="btn btn-secondary" onclick="changeFormat()">
+                        <i class="fas fa-palette"></i> Đổi định dạng
+                    </button>
+                    <button class="btn btn-danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Student data with random passwords
+        const students = {
+            '92510340047': {
+                password: 'Kx9mP2wQ',
+                name: 'Cấn Thị Xuân',
+                birthDate: '06.08.2006',
+                gender: 'Nữ',
+                birthPlace: 'Hà Tây',
+                level: 'Cao đẳng',
+                major: 'An ninh mạng',
+                class: '35CCAN03',
+                course: '2024 - 2027',
+                grades: [
+                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 7.0 },
+                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.8 },
+                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 8.5 },
+                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.2 },
+                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.5 }
+                ],
+                avgGrade: 7.6
+            },
+            '92510340046': {
+                password: 'Ym3nR8vB',
+                name: 'Nguyễn Đức Cảnh',
+                birthDate: '07.06.2004',
+                gender: 'Nam',
+                birthPlace: 'Nam Định',
+                level: 'Cao đẳng',
+                major: 'An ninh mạng',
+                class: '35CCAN03',
+                course: '2024 - 2027',
+                grades: [
+                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 7.2 },
+                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.4 },
+                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 8.0 },
+                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.0 },
+                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.5 }
+                ],
+                avgGrade: 7.4
+            },
+            '92510340053': {
+                password: 'Zt7bN4fH',
+                name: 'Đoàn Hoàng Huynh',
+                birthDate: '04.08.2006',
+                gender: 'Nam',
+                birthPlace: 'Nghệ An',
+                level: 'Cao đẳng',
+                major: 'An ninh mạng',
+                class: '35CCAN03',
+                course: '2024 - 2027',
+                grades: [
+                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 8.0 },
+                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.2 },
+                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 8.0 },
+                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.0 },
+                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.5 }
+                ],
+                avgGrade: 7.5
+            },
+            '92510340042': {
+                password: 'Pq5jK9dL',
+                name: 'Hoàng Minh Ánh',
+                birthDate: '24.11.2005',
+                gender: 'Nữ',
+                birthPlace: 'Bắc Giang',
+                level: 'Cao đẳng',
+                major: 'An ninh mạng',
+                class: '35CCAN03',
+                course: '2024 - 2027',
+                grades: [
+                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 7.0 },
+                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.5 },
+                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 7.8 },
+                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.0 },
+                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.3 }
+                ],
+                avgGrade: 7.3
+            },
+            '92510340049': {
+                password: 'Mn8cX2gT',
+                name: 'Nguyễn Thị Huệ',
+                birthDate: '13.11.2003',
+                gender: 'Nữ',
+                birthPlace: 'Nghệ An',
+                level: 'Cao đẳng',
+                major: 'An ninh mạng',
+                class: '35CCAN03',
+                course: '2024 - 2027',
+                grades: [
+                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 7.8 },
+                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.4 },
+                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 8.0 },
+                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.0 },
+                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.5 }
+                ],
+                avgGrade: 7.5
+            },
+            '92510340051': {
+                password: 'Vb6hF3sR',
+                name: 'Nguyễn Văn Tuân',
+                birthDate: '09.12.2005',
+                gender: 'Nam',
+                birthPlace: 'Bắc Giang',
+                level: 'Cao đẳng',
+                major: 'An ninh mạng',
+                class: '35CCAN03',
+                course: '2024 - 2027',
+                grades: [
+                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 7.0 },
+                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.5 },
+                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 7.8 },
+                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 6.8 },
+                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.2 }
+                ],
+                avgGrade: 7.3
+            },
+            '92510340060': {
+                password: 'Lp4zY7jW',
+                name: 'Nguyễn Thúy Quỳnh',
+                birthDate: '15.11.2005',
+                gender: 'Nữ',
+                birthPlace: 'Hà Tây',
+                level: 'Cao đẳng',
+                major: 'An ninh mạng',
+                class: '35CCAN03',
+                course: '2024 - 2027',
+                grades: [
+                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 8.3 },
+                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 8.0 },
+                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 8.0 },
+                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.5 },
+                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.8 }
+                ],
+                avgGrade: 7.9
+            }
+        };
+
+        let currentStudent = null;
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const mssv = document.getElementById('mssv').value.trim();
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('errorMessage');
+            
+            if (students[mssv] && students[mssv].password === password) {
+                currentStudent = students[mssv];
+                showDashboard();
+            } else {
+                errorDiv.textContent = 'MSSV hoặc mật khẩu không đúng!';
+            }
+        });
+
+        function showDashboard() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            populateStudentData();
+        }
+
+        function populateStudentData() {
+            if (!currentStudent) return;
+
+            // Populate student info
+            const studentInfoDiv = document.getElementById('studentInfo');
+            studentInfoDiv.innerHTML = `
+                <div class="info-item">
+                    <span class="info-label">Họ và tên:</span>
+                    <span class="info-value">${currentStudent.name}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Ngày sinh:</span>
+                    <span class="info-value">${currentStudent.birthDate}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Giới tính:</span>
+                    <span class="info-value">${currentStudent.gender}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Nơi sinh:</span>
+                    <span class="info-value">${currentStudent.birthPlace}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Trình độ:</span>
+                    <span class="info-value">${currentStudent.level}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Chuyên ngành:</span>
+                    <span class="info-value">${currentStudent.major}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Lớp học:</span>
+                    <span class="info-value">${currentStudent.class}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Khóa học:</span>
+                    <span class="info-value">${currentStudent.course}</span>
+                </div>
+            `;
+
+            // Populate grades table
+            const gradesTableBody = document.getElementById('gradesTableBody');
+            gradesTableBody.innerHTML = '';
+            
+            currentStudent.grades.forEach(grade => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${grade.stt}</td>
+                    <td style="text-align: left;">${grade.subject}</td>
+                    <td>${grade.coefficient}</td>
+                    <td class="grade-score">${grade.score.toFixed(1)}</td>
+                `;
+                gradesTableBody.appendChild(row);
+            });
+
+            // Set average grade
+            document.getElementById('avgGrade').textContent = currentStudent.avgGrade.toFixed(1);
+            
+            // Set classification
+            const classification = getClassification(currentStudent.avgGrade);
+            document.getElementById('classification').textContent = classification;
+        }
+
+        // function getClassification(avgGrade) {
+        //     if (avgGrade >= 8.5) return 'Xuất sắc';
+        //     if (avgGrade >= 8.0) return 'Giỏi';
+        //     if (avgGrade >= 7.0) return 'Khá';
+        //     if (avgGrade >= 5.5) return 'Trung bình';
+        //     return 'Yếu';
+        // }
+
+        function logout() {
+            currentStudent = null;
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'block';
+            document.getElementById('loginForm').reset();
+            document.getElementById('errorMessage').textContent = '';
+        }
+
+        function changeFormat() {
+            const body = document.body;
+            const isLight = body.style.background.includes('667eea');
+            
+            if (isLight) {
+                body.style.background = 'linear-gradient(135deg, #2d3748 0%, #4a5568 100%)';
+            } else {
+                body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }
+        }
+
+        // Console log passwords for reference
+        console.log('=== DANH SÁCH MẬT KHẨU SINH VIÊN ===');
+        Object.keys(students).forEach(mssv => {
+            console.log(`MSSV: ${mssv} - Tên: ${students[mssv].name} - Mật khẩu: ${students[mssv].password}`);
+        });
+    </script>
+</body>
+</html>
