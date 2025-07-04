@@ -448,264 +448,115 @@
             </div>
         </div>
     </div>
-
     <script>
-        // Student data with random passwords
-        const students = {
-            '92510340047': {
-                password: 'Kx9mP2wQ',
-                name: 'Cấn Thị Xuân',
-                birthDate: '06.08.2006',
-                gender: 'Nữ',
-                birthPlace: 'Hà Tây',
-                level: 'Cao đẳng',
-                major: 'An ninh mạng',
-                class: '35CCAN03',
-                course: '2024 - 2027',
-                grades: [
-                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 7.0 },
-                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.8 },
-                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 8.5 },
-                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.2 },
-                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.5 }
-                ],
-                avgGrade: 7.6
-            },
-            '92510340046': {
-                password: 'Ym3nR8vB',
-                name: 'Nguyễn Đức Cảnh',
-                birthDate: '07.06.2004',
-                gender: 'Nam',
-                birthPlace: 'Nam Định',
-                level: 'Cao đẳng',
-                major: 'An ninh mạng',
-                class: '35CCAN03',
-                course: '2024 - 2027',
-                grades: [
-                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 7.2 },
-                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.4 },
-                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 8.0 },
-                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.0 },
-                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.5 }
-                ],
-                avgGrade: 7.4
-            },
-            '92510340053': {
-                password: 'Zt7bN4fH',
-                name: 'Đoàn Hoàng Huynh',
-                birthDate: '04.08.2006',
-                gender: 'Nam',
-                birthPlace: 'Nghệ An',
-                level: 'Cao đẳng',
-                major: 'An ninh mạng',
-                class: '35CCAN03',
-                course: '2024 - 2027',
-                grades: [
-                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 8.0 },
-                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.2 },
-                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 8.0 },
-                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.0 },
-                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.5 }
-                ],
-                avgGrade: 7.5
-            },
-            '92510340042': {
-                password: 'Pq5jK9dL',
-                name: 'Hoàng Minh Ánh',
-                birthDate: '24.11.2005',
-                gender: 'Nữ',
-                birthPlace: 'Bắc Giang',
-                level: 'Cao đẳng',
-                major: 'An ninh mạng',
-                class: '35CCAN03',
-                course: '2024 - 2027',
-                grades: [
-                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 7.0 },
-                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.5 },
-                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 7.8 },
-                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.0 },
-                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.3 }
-                ],
-                avgGrade: 7.3
-            },
-            '92510340049': {
-                password: 'Mn8cX2gT',
-                name: 'Nguyễn Thị Huệ',
-                birthDate: '13.11.2003',
-                gender: 'Nữ',
-                birthPlace: 'Nghệ An',
-                level: 'Cao đẳng',
-                major: 'An ninh mạng',
-                class: '35CCAN03',
-                course: '2024 - 2027',
-                grades: [
-                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 7.8 },
-                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.4 },
-                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 8.0 },
-                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.0 },
-                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.5 }
-                ],
-                avgGrade: 7.5
-            },
-            '92510340051': {
-                password: 'Vb6hF3sR',
-                name: 'Nguyễn Văn Tuân',
-                birthDate: '09.12.2005',
-                gender: 'Nam',
-                birthPlace: 'Bắc Giang',
-                level: 'Cao đẳng',
-                major: 'An ninh mạng',
-                class: '35CCAN03',
-                course: '2024 - 2027',
-                grades: [
-                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 7.0 },
-                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 7.5 },
-                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 7.8 },
-                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 6.8 },
-                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.2 }
-                ],
-                avgGrade: 7.3
-            },
-            '92510340060': {
-                password: 'Lp4zY7jW',
-                name: 'Nguyễn Thúy Quỳnh',
-                birthDate: '15.11.2005',
-                gender: 'Nữ',
-                birthPlace: 'Hà Tây',
-                level: 'Cao đẳng',
-                major: 'An ninh mạng',
-                class: '35CCAN03',
-                course: '2024 - 2027',
-                grades: [
-                    { stt: 1, subject: 'Đại cương về CNTT', coefficient: 3, score: 8.3 },
-                    { stt: 2, subject: 'Kiến trúc máy tính và hệ điều hành', coefficient: 3, score: 8.0 },
-                    { stt: 3, subject: 'Mạng máy tính căn bản', coefficient: 3, score: 8.0 },
-                    { stt: 4, subject: 'Cơ sở lập trình', coefficient: 3, score: 7.5 },
-                    { stt: 5, subject: 'Kỹ năng làm việc hiệu quả', coefficient: 2, score: 7.8 }
-                ],
-                avgGrade: 7.9
-            }
-        };
+const GOOGLE_SHEET_API = 'https://script.google.com/macros/s/AKfycbztT_G2efR_rvw9S66zJ68mIg6_TVuO8nBOMp84X09OmoRD2mcGrORlSH3Ltzb392hjEg/exec';
 
-        let currentStudent = null;
+let students = {};
+let currentStudent = null;
 
-        // Login form handler
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const mssv = document.getElementById('mssv').value.trim();
-            const password = document.getElementById('password').value;
-            const errorDiv = document.getElementById('errorMessage');
-            
-            if (students[mssv] && students[mssv].password === password) {
-                currentStudent = students[mssv];
-                showDashboard();
-            } else {
-                errorDiv.textContent = 'MSSV hoặc mật khẩu không đúng!';
-            }
-        });
+fetch(GOOGLE_SHEET_API)
+    .then(res => res.json())
+    .then(data => {
+        students = data;
+        console.log('Dữ liệu sinh viên:', students);
+    })
+    .catch(err => {
+        console.error("Lỗi tải dữ liệu:", err);
+        document.getElementById('errorMessage').textContent = 'Không thể tải dữ liệu!';
+    });
 
-        function showDashboard() {
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-            populateStudentData();
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const mssvInput = document.getElementById('mssv').value.trim();
+    const passwordInput = document.getElementById('password').value.trim();
+    const errorDiv = document.getElementById('errorMessage');
+
+    const mssv = mssvInput.padStart(11, '0');
+
+    if (students[mssv] && String(students[mssv].password).trim() === passwordInput) {
+        currentStudent = students[mssv];
+        currentStudent.avgGrade = calculateAverage(currentStudent.grades);
+        showDashboard();
+    } else {
+        errorDiv.textContent = 'MSSV hoặc mật khẩu không đúng!';
+    }
+});
+
+function calculateAverage(grades) {
+    let total = 0, totalCoef = 0;
+    grades.forEach(g => {
+        const score = parseFloat(g.score);
+        const coef = parseFloat(g.coefficient);
+        if (!isNaN(score) && !isNaN(coef)) {
+            total += score * coef;
+            totalCoef += coef;
         }
+    });
+    return totalCoef ? (total / totalCoef).toFixed(2) : '0.00';
+}
 
-        function populateStudentData() {
-            if (!currentStudent) return;
+function getClassification(avgGrade) {
+    avgGrade = parseFloat(avgGrade);
+    if (avgGrade >= 8.5) return 'Xuất sắc';
+    if (avgGrade >= 8.0) return 'Giỏi';
+    if (avgGrade >= 7.0) return 'Khá';
+    if (avgGrade >= 5.5) return 'Trung bình';
+    return 'Yếu';
+}
 
-            // Populate student info
-            const studentInfoDiv = document.getElementById('studentInfo');
-            studentInfoDiv.innerHTML = `
-                <div class="info-item">
-                    <span class="info-label">Họ và tên:</span>
-                    <span class="info-value">${currentStudent.name}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Ngày sinh:</span>
-                    <span class="info-value">${currentStudent.birthDate}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Giới tính:</span>
-                    <span class="info-value">${currentStudent.gender}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Nơi sinh:</span>
-                    <span class="info-value">${currentStudent.birthPlace}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Trình độ:</span>
-                    <span class="info-value">${currentStudent.level}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Chuyên ngành:</span>
-                    <span class="info-value">${currentStudent.major}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Lớp học:</span>
-                    <span class="info-value">${currentStudent.class}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Khóa học:</span>
-                    <span class="info-value">${currentStudent.course}</span>
-                </div>
-            `;
+function showDashboard() {
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
 
-            // Populate grades table
-            const gradesTableBody = document.getElementById('gradesTableBody');
-            gradesTableBody.innerHTML = '';
-            
-            currentStudent.grades.forEach(grade => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${grade.stt}</td>
-                    <td style="text-align: left;">${grade.subject}</td>
-                    <td>${grade.coefficient}</td>
-                    <td class="grade-score">${grade.score.toFixed(1)}</td>
-                `;
-                gradesTableBody.appendChild(row);
-            });
+    const s = currentStudent;
+    const studentInfoDiv = document.getElementById('studentInfo');
+    studentInfoDiv.innerHTML = `
+        <div class="info-item"><span class="info-label">Họ và tên:</span><span class="info-value">${s.name}</span></div>
+        <div class="info-item"><span class="info-label">Ngày sinh:</span><span class="info-value">${s.birthDate}</span></div>
+        <div class="info-item"><span class="info-label">Giới tính:</span><span class="info-value">${s.gender}</span></div>
+        <div class="info-item"><span class="info-label">Nơi sinh:</span><span class="info-value">${s.birthPlace}</span></div>
+        <div class="info-item"><span class="info-label">Trình độ:</span><span class="info-value">${s.level}</span></div>
+        <div class="info-item"><span class="info-label">Chuyên ngành:</span><span class="info-value">${s.major}</span></div>
+        <div class="info-item"><span class="info-label">Lớp học:</span><span class="info-value">${s.class}</span></div>
+        <div class="info-item"><span class="info-label">Khóa học:</span><span class="info-value">${s.course}</span></div>
+    `;
 
-            // Set average grade
-            document.getElementById('avgGrade').textContent = currentStudent.avgGrade.toFixed(1);
-            
-            // Set classification
-            const classification = getClassification(currentStudent.avgGrade);
-            document.getElementById('classification').textContent = classification;
-        }
+    const gradesTableBody = document.getElementById('gradesTableBody');
+    gradesTableBody.innerHTML = '';
+    s.grades.forEach(grade => {
+        const score = parseFloat(grade.score);
+        const coef = parseFloat(grade.coefficient);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${grade.stt || '-'}</td>
+            <td style="text-align:left">${grade.subject || '-'}</td>
+            <td>${isNaN(coef) ? '-' : coef}</td>
+            <td class="grade-score">${isNaN(score) ? '-' : score.toFixed(1)}</td>
+        `;
+        gradesTableBody.appendChild(row);
+    });
 
-        // function getClassification(avgGrade) {
-        //     if (avgGrade >= 8.5) return 'Xuất sắc';
-        //     if (avgGrade >= 8.0) return 'Giỏi';
-        //     if (avgGrade >= 7.0) return 'Khá';
-        //     if (avgGrade >= 5.5) return 'Trung bình';
-        //     return 'Yếu';
-        // }
+    document.getElementById('avgGrade').textContent = s.avgGrade;
+    document.getElementById('classification').textContent = getClassification(s.avgGrade);
+}
 
-        function logout() {
-            currentStudent = null;
-            document.getElementById('dashboard').style.display = 'none';
-            document.getElementById('loginPage').style.display = 'block';
-            document.getElementById('loginForm').reset();
-            document.getElementById('errorMessage').textContent = '';
-        }
+function logout() {
+    currentStudent = null;
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('loginPage').style.display = 'flex';
+    document.getElementById('loginForm').reset();
+    document.getElementById('errorMessage').textContent = '';
+}
 
-        function changeFormat() {
-            const body = document.body;
-            const isLight = body.style.background.includes('667eea');
-            
-            if (isLight) {
-                body.style.background = 'linear-gradient(135deg, #2d3748 0%, #4a5568 100%)';
-            } else {
-                body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-            }
-        }
+function changeFormat() {
+    const body = document.body;
+    const isDark = body.style.background.includes('#2d3748');
+    body.style.background = isDark
+        ? '#2d3c93'
+        : 'linear-gradient(135deg, #2d3748 0%, #4a5568 100%)';
+}
+</script>
 
-        // Console log passwords for reference
-        console.log('=== DANH SÁCH MẬT KHẨU SINH VIÊN ===');
-        Object.keys(students).forEach(mssv => {
-            console.log(`MSSV: ${mssv} - Tên: ${students[mssv].name} - Mật khẩu: ${students[mssv].password}`);
-        });
-    </script>
 </body>
 </html>
