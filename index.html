@@ -1,562 +1,390 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ thống tra cứu bảng điểm - iSPACE</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iSPACE - Tra cứu bảng điểm</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #2d3c93;
-            min-height: 100vh;
-            color: #333;
-        }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-        /* Login Page Styles */
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+    .login-card {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
 
-        .login-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-        .login-header {
-            margin-bottom: 30px;
-        }
+    .login-header h1 {
+      font-size: 32px;
+      color: #4a5568;
+      margin-bottom: 10px;
+    }
 
-        .login-header h1 {
-            color: #2d3c93;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
+    .login-header i {
+      color: #667eea;
+      margin-right: 10px;
+    }
 
-        .login-header p {
-            color: #718096;
-            font-size: 16px;
-        }
+    .login-header p {
+      color: #718096;
+      font-size: 14px;
+    }
 
-        .form-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
+    .form-group {
+      margin-bottom: 20px;
+    }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #c7363e;
-            font-weight: 600;
-        }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #4a5568;
+    }
 
-        .form-input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
+    .form-input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
 
-        .form-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
+    .form-input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
 
-        .login-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
 
-        .login-btn:hover {
-            transform: translateY(-2px);
-        }
+    .login-btn:hover {
+      transform: translateY(-2px);
+    }
 
-        .error-message {
-            color: #e53e3e;
-            margin-top: 10px;
-            font-size: 14px;
-        }
+    .error-message {
+      color: #e53e3e;
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+    }
 
-        /* Dashboard Styles */
-        .dashboard {
-            display: none;
-        }
+    .dashboard {
+      display: none;
+      background: white;
+      min-height: 100vh;
+    }
 
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-        .header h1 {
-            color: #2d3748;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f7fafc;
+      border-radius: 10px;
+    }
 
-        .header p {
-            color: #718096;
-            font-size: 18px;
-        }
+    .header h1 {
+      font-size: 20px;
+      color: #2d3748;
+      margin-bottom: 5px;
+    }
 
-        .grade-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
+    .grade-card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
 
-        .student-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-            padding: 25px;
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-            border-radius: 15px;
-        }
+    .text-center {
+      text-align: center;
+    }
 
-        .info-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 0;
-        }
+    .mb-4 {
+      margin-bottom: 30px;
+    }
 
-        .info-label {
-            font-weight: 600;
-            color: #4a5568;
-            min-width: 120px;
-        }
+    .student-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
 
-        .info-value {
-            color: #2d3748;
-            font-weight: 500;
-        }
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #e9ecef;
+    }
 
-        .grades-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
+    .info-label {
+      font-weight: 500;
+      color: #495057;
+    }
 
-        .grades-table th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px 15px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 16px;
-        }
+    .info-value {
+      font-weight: 600;
+      color: #212529;
+    }
 
-        .grades-table td {
-            padding: 18px 15px;
-            text-align: center;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 15px;
-        }
+    .grades-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
 
-        .grades-table tr:hover {
-            background-color: #f7fafc;
-        }
+    .grades-table th,
+    .grades-table td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #dee2e6;
+    }
 
-        .grade-score {
-            font-weight: 700;
-            color: #2d3748;
-            font-size: 16px;
-        }
+    .grades-table th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #495057;
+    }
 
-        .summary-section {
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
+    .grade-score {
+      font-weight: 600;
+      color: #28a745;
+    }
 
-        .summary-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+    .summary-section {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
 
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
+    .summary-title {
+      text-align: center;
+      color: #2d3748;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
 
-        .summary-item:last-child {
-            border-bottom: none;
-        }
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 8px 0;
+    }
 
-        .summary-label {
-            font-weight: 600;
-            color: #4a5568;
-        }
+    .summary-label {
+      font-weight: 500;
+      color: #495057;
+    }
 
-        .summary-value {
-            font-weight: 700;
-            color: #2d3748;
-            font-size: 18px;
-        }
+    .summary-value {
+      font-weight: 600;
+      color: #212529;
+    }
 
-        .actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
+    .signature-section {
+      text-align: right;
+      margin-bottom: 30px;
+      padding: 20px;
+    }
 
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .signature-date {
+      font-style: italic;
+      margin-bottom: 50px;
+    }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
+    .signature-title {
+      font-weight: 600;
+      text-decoration: underline;
+    }
 
-        .btn-secondary {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-            color: white;
-        }
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
-        .btn-danger {
-            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
-            color: white;
-        }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: transform 0.2s;
+    }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
 
-        .signature-section {
-            text-align: right;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px solid #e2e8f0;
-        }
+    .btn-primary {
+      background: #007bff;
+      color: white;
+    }
 
-        .signature-date {
-            font-style: italic;
-            color: #718096;
-            margin-bottom: 30px;
-        }
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
 
-        .signature-title {
-            font-weight: 600;
-            color: #2d3748;
-        }
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+    }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-
-            .grade-card {
-                padding: 20px;
-            }
-
-            .student-info {
-                grid-template-columns: 1fr;
-            }
-
-            .grades-table {
-                font-size: 14px;
-            }
-
-            .grades-table th,
-            .grades-table td {
-                padding: 12px 8px;
-            }
-
-            .actions {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-        }
-
-        @media print {
-            body {
-                background: white;
-            }
-
-            .actions {
-                display: none;
-            }
-
-            .grade-card {
-                box-shadow: none;
-                border: 1px solid #ccc;
-            }
-        }
-    </style>
+    @media (max-width: 768px) {
+      .student-info {
+        grid-template-columns: 1fr;
+      }
+      
+      .grades-table {
+        font-size: 14px;
+      }
+      
+      .actions {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Login Page -->
-    <div id="loginPage" class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <h1><i class="fas fa-graduation-cap"></i> iSPACE</h1>
-                <p>Hệ thống tra cứu bảng điểm sinh viên</p>
-            </div>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="mssv">Mã số sinh viên (MSSV)</label>
-                    <input type="text" id="mssv" class="form-input" placeholder="Nhập MSSV của bạn" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Mật khẩu</label>
-                    <input type="password" id="password" class="form-input" placeholder="Nhập mật khẩu" required>
-                </div>
-                <button type="submit" class="login-btn">
-                    <i class="fas fa-sign-in-alt"></i> Đăng nhập
-                </button>
-                <div id="errorMessage" class="error-message"></div>
-            </form>
+  <!-- Login Page -->
+  <div id="loginPage" class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h1><i class="fas fa-graduation-cap"></i> iSPACE</h1>
+        <p>Hệ thống tra cứu bảng điểm sinh viên</p>
+      </div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="mssv">Mã số sinh viên (MSSV)</label>
+          <input type="text" id="mssv" class="form-input" placeholder="Nhập MSSV của bạn" required />
         </div>
-    </div>
-
-    <!-- Dashboard -->
-    <div id="dashboard" class="dashboard">
-        <div class="container">
-            <div class="header">
-                <h1>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h1>
-                <p><strong>Độc lập - Tự do - Hạnh phúc</strong></p>
-            </div>
-
-            <div class="grade-card">
-                <div class="text-center mb-4">
-                    <h2 style="color: #2d3748; font-size: 28px; margin-bottom: 10px;">TRƯỜNG CAO ĐẲNG AN NINH MẠNG iSPACE</h2>
-                    <h3 style="color: #4a5568; font-size: 24px;">BẢNG TỔNG HỢP KẾT QUẢ HỌC TẬP</h3>
-                </div>
-
-                <div id="studentInfo" class="student-info">
-                    <!-- Student info will be populated here -->
-                </div>
-
-                <table class="grades-table">
-                    <thead>
-                        <tr>
-                            <th>TT</th>
-                            <th>Môn học/Môđun</th>
-                            <th>Hệ số môn</th>
-                            <th>Điểm TKM</th>
-                        </tr>
-                    </thead>
-                    <tbody id="gradesTableBody">
-                        <!-- Grades will be populated here -->
-                    </tbody>
-                </table>
-
-                <div class="summary-section">
-                    <h3 class="summary-title">XẾP LOẠI TỐT NGHIỆP</h3>
-                    <div class="summary-item">
-                        <span class="summary-label">Điểm trung bình chung toàn khóa:</span>
-                        <span id="avgGrade" class="summary-value">-</span>
-                    </div>
-                    <div class="summary-item">
-                        <span class="summary-label">Điểm đánh giá xếp loại tốt nghiệp:</span>
-                        <span class="summary-value">-</span>
-                    </div>
-                    <div class="summary-item">
-                        <span class="summary-label">Xếp loại tốt nghiệp:</span>
-                        <span id="classification" class="summary-value">-</span>
-                    </div>
-                </div>
-
-                <div class="signature-section">
-                    <div class="signature-date">TP. Hồ Chí Minh, ngày 19 tháng 06 năm 2025</div>
-                    <div class="signature-title">Hiệu trưởng</div>
-                </div>
-
-                <div class="actions">
-                    <button class="btn btn-primary" onclick="window.print()">
-                        <i class="fas fa-download"></i> Tải PDF
-                    </button>
-                    <button class="btn btn-secondary" onclick="changeFormat()">
-                        <i class="fas fa-palette"></i> Đổi định dạng
-                    </button>
-                    <button class="btn btn-danger" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                    </button>
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <input type="password" id="password" class="form-input" placeholder="Nhập mật khẩu" required />
         </div>
+        <button type="submit" class="login-btn">
+          <i class="fas fa-sign-in-alt"></i> Đăng nhập
+        </button>
+        <div id="errorMessage" class="error-message"></div>
+      </form>
     </div>
-    <script>
-const GOOGLE_SHEET_API = 'https://script.google.com/macros/s/AKfycbztT_G2efR_rvw9S66zJ68mIg6_TVuO8nBOMp84X09OmoRD2mcGrORlSH3Ltzb392hjEg/exec';
+  </div>
 
-let students = {};
-let currentStudent = null;
+  <!-- Dashboard -->
+  <div id="dashboard" class="dashboard">
+    <div class="container">
+      <div class="header">
+        <h1>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h1>
+        <p><strong>Độc lập - Tự do - Hạnh phúc</strong></p>
+      </div>
 
-fetch(GOOGLE_SHEET_API)
-    .then(res => res.json())
-    .then(data => {
-        students = data;
-        console.log('Dữ liệu sinh viên:', students);
-    })
-    .catch(err => {
-        console.error("Lỗi tải dữ liệu:", err);
-        document.getElementById('errorMessage').textContent = 'Không thể tải dữ liệu!';
-    });
+      <div class="grade-card">
+        <div class="text-center mb-4">
+          <h2 style="color: #2d3748; font-size: 28px; margin-bottom: 10px;">TRƯỜNG CAO ĐẲNG AN NINH MẠNG iSPACE</h2>
+          <h3 style="color: #4a5568; font-size: 24px;">BẢNG TỔNG HỢP KẾT QUẢ HỌC TẬP</h3>
+        </div>
 
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+        <div id="studentInfo" class="student-info"></div>
 
-    const mssvInput = document.getElementById('mssv').value.trim();
-    const passwordInput = document.getElementById('password').value.trim();
-    const errorDiv = document.getElementById('errorMessage');
+        <table class="grades-table">
+          <thead>
+            <tr>
+              <th>TT</th>
+              <th>Môn học/Môđun</th>
+              <th>Hệ số môn</th>
+              <th>Điểm TKM</th>
+            </tr>
+          </thead>
+          <tbody id="gradesTableBody"></tbody>
+        </table>
 
-    const mssv = mssvInput.padStart(11, '0');
+        <div class="summary-section">
+          <h3 class="summary-title">XẾP LOẠI TỐT NGHIỆP</h3>
+          <div class="summary-item">
+            <span class="summary-label">Điểm trung bình chung toàn khóa:</span>
+            <span id="avgGrade" class="summary-value">-</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Điểm đánh giá xếp loại tốt nghiệp:</span>
+            <span class="summary-value">-</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Xếp loại tốt nghiệp:</span>
+            <span id="classification" class="summary-value">-</span>
+          </div>
+        </div>
 
-    if (students[mssv] && String(students[mssv].password).trim() === passwordInput) {
-        currentStudent = students[mssv];
-        currentStudent.avgGrade = calculateAverage(currentStudent.grades);
-        showDashboard();
-    } else {
-        errorDiv.textContent = 'MSSV hoặc mật khẩu không đúng!';
-    }
-});
+        <div class="signature-section">
+          <div class="signature-date">TP. Hồ Chí Minh, ngày 19 tháng 06 năm 2025</div>
+          <div class="signature-title">Hiệu trưởng</div>
+        </div>
 
-function calculateAverage(grades) {
-    let total = 0, totalCoef = 0;
-    grades.forEach(g => {
-        const score = parseFloat(g.score);
-        const coef = parseFloat(g.coefficient);
-        if (!isNaN(score) && !isNaN(coef)) {
-            total += score * coef;
-            totalCoef += coef;
-        }
-    });
-    return totalCoef ? (total / totalCoef).toFixed(2) : '0.00';
-}
+        <div class="actions">
+          <button class="btn btn-primary" onclick="window.print()">
+            <i class="fas fa-download"></i> Tải PDF
+          </button>
+          <button class="btn btn-secondary" onclick="changeFormat()">
+            <i class="fas fa-palette"></i> Đổi định dạng
+          </button>
+          <button class="btn btn-danger" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Đăng xuất
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-function getClassification(avgGrade) {
-    avgGrade = parseFloat(avgGrade);
-    if (avgGrade >= 8.5) return 'Xuất sắc';
-    if (avgGrade >= 8.0) return 'Giỏi';
-    if (avgGrade >= 7.0) return 'Khá';
-    if (avgGrade >= 5.5) return 'Trung bình';
-    return 'Yếu';
-}
-
-function showDashboard() {
-    document.getElementById('loginPage').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-
-    const s = currentStudent;
-    const studentInfoDiv = document.getElementById('studentInfo');
-    studentInfoDiv.innerHTML = `
-        <div class="info-item"><span class="info-label">Họ và tên:</span><span class="info-value">${s.name}</span></div>
-        <div class="info-item"><span class="info-label">Ngày sinh:</span><span class="info-value">${s.birthDate}</span></div>
-        <div class="info-item"><span class="info-label">Giới tính:</span><span class="info-value">${s.gender}</span></div>
-        <div class="info-item"><span class="info-label">Nơi sinh:</span><span class="info-value">${s.birthPlace}</span></div>
-        <div class="info-item"><span class="info-label">Trình độ:</span><span class="info-value">${s.level}</span></div>
-        <div class="info-item"><span class="info-label">Chuyên ngành:</span><span class="info-value">${s.major}</span></div>
-        <div class="info-item"><span class="info-label">Lớp học:</span><span class="info-value">${s.class}</span></div>
-        <div class="info-item"><span class="info-label">Khóa học:</span><span class="info-value">${s.course}</span></div>
-    `;
-
-    const gradesTableBody = document.getElementById('gradesTableBody');
-    gradesTableBody.innerHTML = '';
-    s.grades.forEach(grade => {
-        const score = parseFloat(grade.score);
-        const coef = parseFloat(grade.coefficient);
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${grade.stt || '-'}</td>
-            <td style="text-align:left">${grade.subject || '-'}</td>
-            <td>${isNaN(coef) ? '-' : coef}</td>
-            <td class="grade-score">${isNaN(score) ? '-' : score.toFixed(1)}</td>
-        `;
-        gradesTableBody.appendChild(row);
-    });
-
-    document.getElementById('avgGrade').textContent = s.avgGrade;
-    document.getElementById('classification').textContent = getClassification(s.avgGrade);
-}
-
-function logout() {
-    currentStudent = null;
-    document.getElementById('dashboard').style.display = 'none';
-    document.getElementById('loginPage').style.display = 'flex';
-    document.getElementById('loginForm').reset();
-    document.getElementById('errorMessage').textContent = '';
-}
-
-function changeFormat() {
-    const body = document.body;
-    const isDark = body.style.background.includes('#2d3748');
-    body.style.background = isDark
-        ? '#2d3c93'
-        : 'linear-gradient(135deg, #2d3748 0%, #4a5568 100%)';
-}
-</script>
-
+<script src="newJs.js"></script>
 </body>
 </html>
