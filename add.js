@@ -1,16 +1,3 @@
-const data = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6dFRfRzJlZlJfcnZ3OVM2NnpKNjhtSWc2X1RWdU84bkJPTXA4NFgwOU9tb1JEMm1jR3JPUmxTSDNMdHpiMzkyaGpFZy9leGVj';
-let students = {};
-let currentStudent = null;
-
-fetch(atob(data))
-    .then(res => res.json())
-    .then(data => {
-        students = data;
-    })
-    .catch(err => {
-        console.error("Lỗi tải dữ liệu:", err);
-        document.getElementById('errorMessage').textContent = 'Không thể tải dữ liệu!';
-    });
 
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -40,7 +27,22 @@ function calculateAverage(grades) {
             totalCoef += coef;
         }
     });
-    return totalCoef ? (total / totalCoef).toFixed(2) : '0.00';
+
+    if (!totalCoef) return '0.0';
+
+    let avg = total / totalCoef;
+    avg = Math.floor(avg * 10) / 10; // Cắt bớt sau 1 số thập phân
+    return avg.toFixed(1);
+}
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    if (isNaN(date)) return '-';
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
 }
 
 function showDashboard() {
@@ -51,7 +53,7 @@ function showDashboard() {
     const studentInfoDiv = document.getElementById('studentInfo');
     studentInfoDiv.innerHTML = `
         <div class="info-item"><span class="info-label">Họ và tên:</span><span class="info-value">${s.name}</span></div>
-        <div class="info-item"><span class="info-label">Ngày sinh:</span><span class="info-value">${s.birthDate}</span></div>
+        <div class="info-item"><span class="info-label">Ngày sinh:</span><span class="info-value">${formatDate(s.birthDate)}</span></div>
         <div class="info-item"><span class="info-label">Giới tính:</span><span class="info-value">${s.gender}</span></div>
         <div class="info-item"><span class="info-label">Nơi sinh:</span><span class="info-value">${s.birthPlace}</span></div>
         <div class="info-item"><span class="info-label">Trình độ:</span><span class="info-value">${s.level}</span></div>
