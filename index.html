@@ -324,15 +324,14 @@
   <!-- Dashboard -->
   <div id="dashboard" class="dashboard">
     <div class="container">
-      <div class="header">
-        <h1>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h1>
-        <p><strong>Độc lập - Tự do - Hạnh phúc</strong></p>
-      </div>
-
       <div class="grade-card">
         <div class="text-center mb-4">
-          <h2 style="color: #2d3748; font-size: 28px; margin-bottom: 10px;">TRƯỜNG CAO ĐẲNG AN NINH MẠNG iSPACE</h2>
-          <h3 style="color: #4a5568; font-size: 24px;">BẢNG TỔNG HỢP KẾT QUẢ HỌC TẬP</h3>
+          <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 10px;">
+  <img src="logo.png" alt="Logo" style="height: 60px;">
+  <h2 style="color: #2d3748; font-size: 28px;">TRƯỜNG CAO ĐẲNG AN NINH MẠNG iSPACE</h2>
+</div>
+
+          <h3 style="color: #4a5568; font-size: 24px;">KẾT QUẢ HỌC TẬP</h3>
         </div>
 
         <div id="studentInfo" class="student-info"></div>
@@ -350,32 +349,16 @@
         </table>
 
         <div class="summary-section">
-          <h3 class="summary-title">XẾP LOẠI TỐT NGHIỆP</h3>
+          <h3 class="summary-title">TỔNG KẾT KHÓA</h3>
           <div class="summary-item">
             <span class="summary-label">Điểm trung bình chung toàn khóa:</span>
             <span id="avgGrade" class="summary-value">-</span>
           </div>
-          <div class="summary-item">
-            <span class="summary-label">Điểm đánh giá xếp loại tốt nghiệp:</span>
-            <span class="summary-value">-</span>
-          </div>
-          <div class="summary-item">
-            <span class="summary-label">Xếp loại tốt nghiệp:</span>
-            <span id="classification" class="summary-value">-</span>
-          </div>
-        </div>
-
-        <div class="signature-section">
-          <div class="signature-date">TP. Hồ Chí Minh, ngày 19 tháng 06 năm 2025</div>
-          <div class="signature-title">Hiệu trưởng</div>
         </div>
 
         <div class="actions">
           <button class="btn btn-primary" onclick="window.print()">
             <i class="fas fa-download"></i> Tải PDF
-          </button>
-          <button class="btn btn-secondary" onclick="changeFormat()">
-            <i class="fas fa-palette"></i> Đổi định dạng
           </button>
           <button class="btn btn-danger" onclick="logout()">
             <i class="fas fa-sign-out-alt"></i> Đăng xuất
@@ -385,6 +368,7 @@
     </div>
   </div>
 
-<script src="newJs.js"></script>
+<script src="data.js"></script>
+<script src="add.js"></script>
 </body>
 </html>
