@@ -31,7 +31,7 @@ function calculateAverage(grades) {
     if (!totalCoef) return '0.0';
 
     let avg = total / totalCoef;
-    avg = Math.ceil(avg * 10) / 10; // Cắt bớt sau 1 số thập phân
+    avg = Math.round(avg * 10) / 10; // Cắt bớt sau 1 số thập phân
     return avg.toFixed(1);
 }
 function formatDate(dateString) {
